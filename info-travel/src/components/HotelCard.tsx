@@ -5,19 +5,18 @@ export const HotelCard = ({ hotel }: { hotel: any }) => {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsClient(true); 
+    setIsClient(true);
   }, []);
 
   const handleViewMore = () => {
     if (hotel?.id) {
- 
       window.location.href = `/hotel/${hotel.id}`;
     } else {
-      console.error("Hotel ID is undefined:", hotel); 
+      console.error("Hotel ID is undefined:", hotel);
     }
   };
 
-  if (!isClient) return null; 
+  if (!isClient) return null;
 
   return (
     <div className="w-80 bg-white rounded-xl shadow-lg overflow-hidden font-sans">
@@ -40,15 +39,11 @@ export const HotelCard = ({ hotel }: { hotel: any }) => {
           {hotel.hotel.name}
         </h3>
         <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center space-x-1">
-            {[...Array(4)].map((_, i) => (
-              <span key={i} className="text-yellow-400 text-lg">
-                ★
-              </span>
-            ))}
-          </div>
+          <span className="text-yellow text-lg">
+            {"★".repeat(Math.round(hotel.hotel.stars))}
+          </span>
           <button
-            onClick={handleViewMore} 
+            onClick={handleViewMore}
             className="w-32 bg-blue-500 text-white py-2 rounded-full shadow-md hover:bg-blue-600 transition-transform transform hover:scale-105 text-sm font-medium"
           >
             Ver mais

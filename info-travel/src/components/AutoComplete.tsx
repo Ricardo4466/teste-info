@@ -2,10 +2,15 @@ import { useApiContext } from "@/context/ApiContext";
 import React, { useState, useCallback } from "react";
 import { LuMapPin } from "react-icons/lu";
 
+interface Suggestion {
+  name: string;
+  region: string;
+}
+
 export const AutoComplete = () => {
-  const [query, setQuery] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
-  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [query, setQuery] = useState<string>("");
+  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
 
   const { getSuggestions } = useApiContext();
 
@@ -31,7 +36,7 @@ export const AutoComplete = () => {
     setShowSuggestions(true);
   };
 
-  const handleSuggestionClick = (suggestion: any) => {
+  const handleSuggestionClick = (suggestion: Suggestion) => {
     setQuery(suggestion.name);
     setShowSuggestions(false);
   };
@@ -55,25 +60,21 @@ export const AutoComplete = () => {
           className="absolute z-10 w-full mt-4 bg-white border rounded-md shadow-lg overflow-y-auto"
           style={{ maxHeight: "200px" }}
         >
-          {(suggestions as { name: string; region: string }[]).map(
-            (suggestion, index) => (
-              <div
-                key={index}
-                onClick={() => handleSuggestionClick(suggestion)}
-                className="px-4 py-2 hover:bg-blue-100 cursor-pointer flex items-center space-x-4"
-              >
-                <div className="w-25 h-25 text-primaryColor flex items-center justify-center">
-                  <LuMapPin />
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-semibold">{suggestion.name}</span>
-                  <span className="text-sm text-gray-600">
-                    {suggestion.region}
-                  </span>
-                </div>
+          {suggestions.map((suggestion, index) => (
+            <div
+              key={index}
+              onClick={() => handleSuggestionClick(suggestion)}
+              className="px-4 py-2 hover:bg-blue-100 cursor-pointer flex items-center space-x-4"
+            >
+              <div className="w-25 h-25 text-primaryColor flex items-center justify-center">
+                <LuMapPin />
               </div>
-            )
-          )}
+              <div className="flex flex-col">
+                <span className="font-semibold">{suggestion.name}</span>
+                <span className="text-sm text-gray-600">{suggestion.region}</span>
+              </div>
+            </div>
+          ))}
         </div>
       )}
     </div>

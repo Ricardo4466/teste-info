@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { HotelCard } from "@/components/Card";
+import { HotelCard } from "@/components/HotelCard";
 import { SearchBar } from "@/components/SearchBar";
 import { CiLogin } from "react-icons/ci";
 import { LuHouse } from "react-icons/lu";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useApiContext } from "@/context/ApiContext"; 
+import { useApiContext } from "@/context/ApiContext";
+import Link from "next/link";
 
 export interface Hotel {
   id: number;
@@ -17,7 +18,7 @@ export interface Hotel {
 }
 
 export default function Search() {
-  const { getHotels } = useApiContext(); 
+  const { getHotels } = useApiContext();
   const [hotels, setHotels] = useState<Hotel[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -27,7 +28,7 @@ export default function Search() {
   useEffect(() => {
     async function fetchHotels() {
       try {
-        const data = await getHotels(); 
+        const data = await getHotels();
         setHotels((prevHotels) => [...prevHotels, ...data]);
         if (data.length === 0) {
           setHasMore(false);
@@ -52,18 +53,18 @@ export default function Search() {
           infotravel
         </h1>
         <div className="flex space-x-4">
-          <a
+          <Link
             href="/"
             className="text-sm flex items-center text-textColor hover:underline"
           >
             <LuHouse className="mr-1" /> Pagina Inicial
-          </a>
-          <a
+          </Link>
+          <Link
             href=""
             className="text-sm flex items-center text-textColor hover:underline"
           >
             <CiLogin className="mr-1" /> Iniciar Sessão
-          </a>
+          </Link>
         </div>
       </header>
 

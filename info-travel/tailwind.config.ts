@@ -20,6 +20,7 @@ module.exports = {
         yellow: "#F2BF09",
         captionColor: "#698096",
         red: "#ff0000",
+        overlay: "#123952f2",
         gray: {
           gray: "#BFCCD9",
           grayLight: "#E3EBF3",

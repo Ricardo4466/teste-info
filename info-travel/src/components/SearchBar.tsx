@@ -8,20 +8,11 @@ import { GuestSelector } from "./GuestSelector";
 export const SearchBar = () => {
   const router = useRouter();
 
-  const [destination, setDestination] = useState("");
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
-  const [guests, setGuests] = useState("");
 
   const handleSearch = () => {
-    const params = new URLSearchParams({
-      destination,
-      checkIn,
-      checkOut,
-      guests,
-    }).toString();
-
-    router.push(`/search?${params}`);
+    router.push(`/search`);
   };
 
   return (
